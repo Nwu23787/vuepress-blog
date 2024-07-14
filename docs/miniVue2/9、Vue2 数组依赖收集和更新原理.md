@@ -1,0 +1,338 @@
+数组的处理是 Vue2 中的一大难题，我们前面也说过，Vue2 在处理数组和处理对象的时候，其实是有很大区别的。处理数组时，没有给数组的每一项添加 defineproperty 的劫持。即使我们可以把数组看成特殊的对象，按照和对象一样的方式，为每一个属性（每一个数组项）添加劫持，但是 Vue2 中就是没有这样做。原因我们前面也提到过，就是因为**性能原因**。但也正是对数组的这种特殊的劫持处理，导致了我们后面在实现数组响应式和依赖收集的时候，也需要对他做很多的特殊处理。这也是 Vue2 中非常差劲的一点，这部分代码写起来也特别恶心，完全没有 Vue3 的 proxy 来的简洁。文章内的源码并非真实源码，均为作者手写。源码项目地址：[Nwu23787/mini-Vue2: 手写 Vue2 核心源码 (github.com)](https://github.com/Nwu23787/mini-Vue2)
+
+## 1. 数组响应式的问题
+
+首先，数组本身其实是没有进行 defineproperty 的劫持的：
+
+```js
+  <div id="app">
+    {{arr}}
+  </div>
+
+const vm = new Vue({
+      data() {
+        return {
+          arr: [1, 2, 3,{a:100}, ['a', 'b']]
+        }
+      },
+      el: '#app'
+    })
+```
+
+对于这段代码，**arr 这个变量是被劫持的**，因为他作为了 data 对象的**属性**，而我们知道，普通对象的属性都是被添加了 defineproperty 劫持的，所以，`vm.arr = [5,6,7]` 这种方式修改 arr 的值，是可以被监听到的。
+
+**但是**，必须注意的是，arr 的值，也就是 `[1, 2, 3,{a:100}, ['a', 'b']]` 这个数组，他是没有做 defineproperty 去劫持他的每一项的。我们当时在做数据劫持的时候，对数组做了特殊的判断，如果说发现传入的是一个数组的话，那么不会按照对象的方式给每个属性做 defineproperty 的劫持，而是修改了数组原型上的 7 个可能修改数组的方法。所以，这就导致了，我们通过下标的方式去修改数组中的元素，是无法被监听到的。比如`vm.arr[1] = 5`，因为`vm.arr[5]`没有被劫持，所以没有 get 和 set 方法，那么也就没有依赖收集和派发更新的这个过程，所以视图无法更新。
+
+**但是又但是**，如果说数组元素是一个**对象**，我们去修改这个对象的属性，视图是可以更新的！对于上面这个例子，我们使用`vm.arr[3].a = 0` 去修改对象的属性，视图是可以同步更新的。因为虽然`vm.arr[3]`没有被劫持，但是，`vm.arr[3]`的值`{a:100}`作为一个对象，他的所有属性都被劫持了，包括 a 属性。我们修改 a 属性，就会触发 set 方法，派发了更新，执行相应 watcher 的更新方法，更新视图。
+
+另外，通过数组方法修改数组，我们目前可以实现监听，但是还没有实现修改后，可以更新视图的功能。
+
+## 2. 数组依赖的收集
+
+我们要想监听数组变化后，更新视图，那么肯定需要收集数组对应的 watcher，然后在外面重写的数组方法里面，更新通知 watcher ，更新视图。数组的依赖收集是一个大问题，因为我们根本没有对数组做属性的劫持，那么数组就没有 get 方法。我们知道，我们收集依赖都在 get 方法里面进行的，所以数组元素收集不到依赖。
+
+对于上面那个例子，我们在模版中使用了 arr，收集到了 arr 的依赖，当 arr 发生赋值的时候，我们会派发更新。而我们通过数组方法和下标修改数组项，并没有触发这种赋值，所以不会更新 DOM。
+
+所以，我们希望收集到**数组本身的依赖**，也就是我们数组发生变化，需要更新哪些组件，也就是需要通知哪些 watcher。收集到这些依赖之后，我们在重写的数组方法中通知这些 watcher 就可以了。至于通过下标修改无法触发更新，Vue2 中没有解决这个缺陷，况且我们也很少直接使用下标去修改某一个数组项。
+
+那么现在难点就在于，如何收集到数组本身的依赖。其实 Vue2 中在做响应式处理的时候，给数组和对象上都添加了一个 dep 属性，用于收集数组和变量本身对应的依赖。**注意，这个 dep 和我们之前实现响应式的 dep 不是同一个！**我们来看源码：
+
+```js
+/**
+ * 将传入的 data 对象使用 defineproperty 进行劫持
+ * @param {Object} data  要实现响应式的对象
+ * @returns {} 
+ */
+export function observe(data) {
+
+
+
+    // 判断 data 是否需要劫持，非对象不劫持
+    if (typeof data !== 'object' || typeof data == 'null') {
+        return
+    }
+
+    // 判断 data 是否已经被监听过了
+    if (data.__ob__) return data
+
+    //通过observer类进行监听
+    return new Observer(data)
+}
+
+/**
+ * 递归解决数组嵌套，视图更新
+ * @param {*} value 
+ */
+function dependArray(value) {
+    for (let i = 0; i < value.length; i++) {
+        let current = value[i]
+        // 数组中的数组也要收集当前这个 watcher，数组中的数组值发生变化，当前组件也要刷新
+        current.__ob__ && current.__ob__.dep.depend()
+        if (Array.isArray(current)) {
+            dependArray(current)
+        }
+    }
+
+}
+
+/**
+ * 实现对象指定属性的劫持
+ * @param {Object} target 被劫持的对象
+ * @param {String} key 需要被劫持的属性
+ * @param {*} value 被劫持属性当前的值
+ */
+export function defineReactive(target, key, value) {
+    // 对属性值进行深层递归遍历
+    let childOb = observe(value) // childOb.dep 用来收集依赖
+    // 为每个属性绑定一个dep
+    let dep = new Dep()
+    // 闭包。对外暴露了 set 和 get 方法，从而使 value 值不会被回收
+    Object.defineProperty(target, key, {
+        // 访问属性的时候，触发get
+        get() {
+            if (Dep.target) {
+                // 全局上存在 watcher，收集这个 watcher
+                dep.depend()
+                if (childOb) {
+                    childOb.dep.depend()
+                    if (Array.isArray(value)) {
+                        dependArray(value)
+                    }
+                }
+            }
+            return value
+        },
+        // 修改属性的时候，触发set
+        set(newValue) {
+            console.log('set', newValue);
+            if (newValue === value) return
+            // 修改之后重新劫持，因为如果用户将值修改为对象，那么要对这个对象进行深度劫持
+            observe(newValue)
+            value = newValue
+            // 修改了响应式数据之后，通知观察者更新
+            dep.notify()
+        }
+    })
+}
+
+class Observer {
+    constructor(data) {
+        // data 可能是对象或者数组，在这给 data 新增属性 dep，让他去收集依赖
+        // 给每个对象都增加收集依赖功能
+        this.dep = new Dep()
+
+        // 把 data 对应的 Observer 实例添加到了 data 上，这样做的话，1 是可以通过监测是否存在_ob_属性来检测 data 是否已被监听过，2 是通过 _ob_ 可以访问到 walk 和 observerArray 以及其他的方法，便于其他地方使用
+        // 必须把 _ob_ 设置为不可枚举属性才行，否则在递归遍历监听的时候会死循环
+        Object.defineProperty(data, '__ob__', {
+            value: this,
+            enumerable: false
+        })
+        // 判断data是否为数组，数组不用进行每一项的劫持
+        if (Array.isArray(data)) {
+            // 通过修改data的原型，重写可以改变数组的方法
+            data.__proto__ = newProto
+            this.observerArray(data)
+        } else {
+            this.walk(data)
+        }
+    }
+    // 遍历对象，进行劫持
+    walk(data) {
+        Object.keys(data).forEach(key => defineReactive(data, key, data[key]))
+    }
+
+    // 实现数组监测
+    observerArray(data) {
+        //  遍历数组，如果数组的子项是对象的话，要对这个对象进行劫持
+        data.forEach(item => observe(item))
+    }
+}
+```
+
+当我们判断一个属性，他对应的值为对象的时候，就会使用 new Observer 为这个对象创建一个**响应式对象**，并把这个响应式对象挂载到原对象的`__ob__`属性上。我们在创建响应式对象的时候，**给响应式对象设置了一个 dep 属性**，用于收集该对象对应的依赖。
+
+收集对象依然是在 get 方法中，当我们判断当前属性是一个对象或者数组时，那么就会把当前的这个全局 watcher 加入到该对象或者数组`__ob__.dep`中，进行依赖的收集。对于普通对象，我们这样做的目的是为了实现`$set`，后面会说到。
+
+对于数组来说，我们在这里收集到了其对应的 watcher ，那么我们就可以在重写的数组方法中**通知这些 watcher**，来更新 DOM。每次调用重写的数组方法，都会通知这些 watcher。这样就可以实现数组的视图更新了。
+
+```js
+// array.js
+    // 重写数组中可以改变数组的7个方法，并返回重写后的原型对象
+    let oldProto = Array.prototype
+    // 不可以直接修改数组的原型，通过类似于子类重写的方式，使 newProto 的原型指向原来数组的原型，在 newProto 上重写方法不会影响到原数组原型
+    let newProto = Object.create(oldProto)
+
+    const methods = [
+        'push',
+        'pop',
+        'shift',
+        'unshift',
+        'reverse',
+        'sort',
+        'splice'
+    ]
+
+    methods.forEach(method => {
+        newProto[method] = function (...args) {
+            // 调用原有原型上的相同方法，但要注意this问题
+            const res = oldProto[method].call(this, ...args)
+            // 获取到新增的元素
+            let newNode = undefined
+            // 对于新增元素的方法，必须给新增的元素添加监听
+            if (method === 'push' || method === 'unshift') {
+                newNode = args
+            } else if (method === 'splice') {
+                // spilce 的参数除掉前两个参数之后，才是新增的元素
+                newNode = args.slice(2)
+            }
+
+            if (newNode) {
+                this.__ob__.observerArray(newNode)
+            }
+            
+            // 通知对应 watcher ，数组发生了变化
+            this.__ob__.dep.notify()
+
+            return res
+        }
+
+    })
+
+    export default newProto
+```
+
+## 3. 解决数组嵌套问题
+
+按照上面的方式，我们看似已经实现了数组的响应式问题。但是，当**数组中嵌套数组**的情况出现，依然是存在 bug 的。例如：
+
+```js
+<body>
+  <div id="app">
+    {{arr}}
+  </div>
+  <script src="vue.js"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script> -->
+  <script>
+    const vm = new Vue({
+      data() {
+        return {
+          arr: [1, 2, 3, ['a', 'b']]
+        }
+      },
+      el: '#app'
+    })
+    vm.arr[3].push('c') // 视图没有更新
+  </script>
+```
+
+这是为什么？我们来分析一下：
+
+其实根本原因还是因为我们没有为数组的每一项去做劫持，我们可以看到，要进入 defineReactive 函数，必须是通过这里：
+
+```js
+    // 遍历对象，进行劫持
+    walk(data) {
+        Object.keys(data).forEach(key => defineReactive(data, key, data[key]))
+    }
+```
+
+如果说是**对象中**某个属性值为数组的话，数组是可以进入 defineReactive 函数，从而进行属性的 get set 方法设置，和数组依赖收集的。
+
+但是，数组嵌套数组的情况，内层数组无法进入 defineReactive 函数，而是进入 observe 函数：
+
+```js
+    // 实现数组监测
+    observerArray(data) {
+        //  遍历数组，如果数组的子项是对象的话，要对这个对象进行劫持
+        data.forEach(item => observe(item))
+    }
+```
+
+所以，为了解决内层数组没办法进入 defineReactive 进行依赖收集的问题，我们在外层函数进入 defineReactive 的时候，就进行**递归**遍历，为每一个内层数组的 dep 上添加当前的全局 watcher，也就是收集依赖。
+
+```js
+/**
+ * 递归解决数组嵌套，视图更新
+ * @param {*} value 
+ */
+function dependArray(value) {
+    for (let i = 0; i < value.length; i++) {
+        let current = value[i]
+        // 数组中的数组也要收集当前这个 watcher，数组中的数组值发生变化，当前组件也要刷新
+        current.__ob__ && current.__ob__.dep.depend()
+        if (Array.isArray(current)) {
+            dependArray(current)
+        }
+    }
+
+}
+
+/**
+ * 实现对象指定属性的劫持
+ * @param {Object} target 被劫持的对象
+ * @param {String} key 需要被劫持的属性
+ * @param {*} value 被劫持属性当前的值
+ */
+export function defineReactive(target, key, value) {
+    // 对属性值进行深层递归遍历
+    let childOb = observe(value) // childOb.dep 用来收集依赖
+    // 为每个属性绑定一个dep
+    let dep = new Dep()
+    // 闭包。对外暴露了 set 和 get 方法，从而使 value 值不会被回收
+    Object.defineProperty(target, key, {
+        // 访问属性的时候，触发get
+        get() {
+            if (Dep.target) {
+                // 全局上存在 watcher，收集这个 watcher
+                dep.depend()
+                if (childOb) {
+                    childOb.dep.depend()
+                    if (Array.isArray(value)) {
+                        dependArray(value)
+                    }
+                }
+            }
+            return value
+        },
+        // 修改属性的时候，触发set
+        set(newValue) {
+            console.log('set', newValue);
+            if (newValue === value) return
+            // 修改之后重新劫持，因为如果用户将值修改为对象，那么要对这个对象进行深度劫持
+            observe(newValue)
+            value = newValue
+            // 修改了响应式数据之后，通知观察者更新
+            dep.notify()
+        }
+    })
+}
+```
+
+**dependArray** 就是用于实现内层数组递归收集依赖的。
+
+**总结**：可以看到，Vue2 对于数组这个类型，做的特殊处理实在是太多了，写起来真的很麻烦，很容易出错。即使这样，也没有尽善尽美，还是存在下标访问的 bug。Vue2 在这个方面做的确实很不好。
+
+本文共 3274 字（含代码），截止本篇，本系列累计 21237 字
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
