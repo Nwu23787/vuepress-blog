@@ -112,7 +112,7 @@ export default 'pig'
 
 浏览器对于导出语句的处理，是通过生成映射表的防抖来进行的。具体来说，就是在内存中，针对 pig.js 开辟了一个表格，用来记录这个模块它导出了什么：
 
-<img src="./../.vuepress/public/img/image-20240503093508442.png" alt="image-20240503093508442" style="zoom:67%;" />
+<img src="../.vuepress/public/img/image-20240503093508442.png" alt="image-20240503093508442" style="zoom:67%;" />
 
 用表格记录的目的是为了**缓存**，将来如果还有别的模块中再依赖了这个模块，那么就不用再执行这个模块了，直接来内存中的这个表格中取值就可以了。
 
@@ -128,7 +128,7 @@ import pig from './pig.js'
 
 之后执行导出语句，形成一个表格：
 
-<img src="./../.vuepress/public/img/image-20240503094303909.png" alt="image-20240503094303909" style="zoom: 67%;" />
+<img src="../.vuepress/public/img/image-20240503094303909.png" alt="image-20240503094303909" style="zoom: 67%;" />
 
 然后再回到 main.js ，执行：
 
@@ -184,7 +184,7 @@ main dynamic
 
 执行检查：
 
-![image-20240503095452356](./../.vuepress/public/img/image-20240503095452356.png)
+![image-20240503095452356](../.vuepress/public/img/image-20240503095452356.png)
 
 和我们的分析完全一致，这就是 ESM 模块化在浏览器中的执行原理~
 
