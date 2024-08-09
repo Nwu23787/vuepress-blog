@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Vue2 中如何实现响应式数据的监听 | Happyblog</title>
+    <meta name="generator" content="VuePress 1.9.10">
+    
+    <meta name="description" content="基于 vuepress 的简易博客平台">
+    
+    <link rel="preload" href="/vuepress-blog/assets/css/0.styles.631b7830.css" as="style"><link rel="preload" href="/vuepress-blog/assets/js/app.f8677ea4.js" as="script"><link rel="preload" href="/vuepress-blog/assets/js/2.32f56e5c.js" as="script"><link rel="preload" href="/vuepress-blog/assets/js/1.a930a345.js" as="script"><link rel="preload" href="/vuepress-blog/assets/js/36.ece446f9.js" as="script"><link rel="prefetch" href="/vuepress-blog/assets/js/10.ab76fc9b.js"><link rel="prefetch" href="/vuepress-blog/assets/js/11.8f72b06d.js"><link rel="prefetch" href="/vuepress-blog/assets/js/12.428f6f98.js"><link rel="prefetch" href="/vuepress-blog/assets/js/13.eb47b2b6.js"><link rel="prefetch" href="/vuepress-blog/assets/js/14.7257e695.js"><link rel="prefetch" href="/vuepress-blog/assets/js/15.bd1b03c3.js"><link rel="prefetch" href="/vuepress-blog/assets/js/16.7a561afc.js"><link rel="prefetch" href="/vuepress-blog/assets/js/17.cd516f79.js"><link rel="prefetch" href="/vuepress-blog/assets/js/18.42e9f2b1.js"><link rel="prefetch" href="/vuepress-blog/assets/js/19.4958156f.js"><link rel="prefetch" href="/vuepress-blog/assets/js/20.cd1f9a1c.js"><link rel="prefetch" href="/vuepress-blog/assets/js/21.e4fea2d1.js"><link rel="prefetch" href="/vuepress-blog/assets/js/22.0919633c.js"><link rel="prefetch" href="/vuepress-blog/assets/js/23.331c698f.js"><link rel="prefetch" href="/vuepress-blog/assets/js/24.5874fb5a.js"><link rel="prefetch" href="/vuepress-blog/assets/js/25.e56a5813.js"><link rel="prefetch" href="/vuepress-blog/assets/js/26.7e912fb0.js"><link rel="prefetch" href="/vuepress-blog/assets/js/27.aa11be6f.js"><link rel="prefetch" href="/vuepress-blog/assets/js/28.b8505e46.js"><link rel="prefetch" href="/vuepress-blog/assets/js/29.155d9866.js"><link rel="prefetch" href="/vuepress-blog/assets/js/3.d7d8640a.js"><link rel="prefetch" href="/vuepress-blog/assets/js/30.80297b92.js"><link rel="prefetch" href="/vuepress-blog/assets/js/31.977ccbdd.js"><link rel="prefetch" href="/vuepress-blog/assets/js/32.767609f9.js"><link rel="prefetch" href="/vuepress-blog/assets/js/33.44891ea8.js"><link rel="prefetch" href="/vuepress-blog/assets/js/34.f516ab0b.js"><link rel="prefetch" href="/vuepress-blog/assets/js/35.151a5daf.js"><link rel="prefetch" href="/vuepress-blog/assets/js/37.37735106.js"><link rel="prefetch" href="/vuepress-blog/assets/js/38.45a9e8b8.js"><link rel="prefetch" href="/vuepress-blog/assets/js/39.0fcd7dcc.js"><link rel="prefetch" href="/vuepress-blog/assets/js/4.ecf7f9e8.js"><link rel="prefetch" href="/vuepress-blog/assets/js/40.621682ab.js"><link rel="prefetch" href="/vuepress-blog/assets/js/41.d03d4354.js"><link rel="prefetch" href="/vuepress-blog/assets/js/42.edf41024.js"><link rel="prefetch" href="/vuepress-blog/assets/js/43.8cd60945.js"><link rel="prefetch" href="/vuepress-blog/assets/js/44.de2cd4e9.js"><link rel="prefetch" href="/vuepress-blog/assets/js/45.4fb41246.js"><link rel="prefetch" href="/vuepress-blog/assets/js/46.b26d762d.js"><link rel="prefetch" href="/vuepress-blog/assets/js/47.3bb572d2.js"><link rel="prefetch" href="/vuepress-blog/assets/js/48.dc6af168.js"><link rel="prefetch" href="/vuepress-blog/assets/js/49.9511edba.js"><link rel="prefetch" href="/vuepress-blog/assets/js/5.8cea2090.js"><link rel="prefetch" href="/vuepress-blog/assets/js/50.2e05304d.js"><link rel="prefetch" href="/vuepress-blog/assets/js/51.f72b0b54.js"><link rel="prefetch" href="/vuepress-blog/assets/js/52.1650a6e6.js"><link rel="prefetch" href="/vuepress-blog/assets/js/53.36c638aa.js"><link rel="prefetch" href="/vuepress-blog/assets/js/54.5931bcf4.js"><link rel="prefetch" href="/vuepress-blog/assets/js/55.f48c6b88.js"><link rel="prefetch" href="/vuepress-blog/assets/js/56.6d799974.js"><link rel="prefetch" href="/vuepress-blog/assets/js/57.0abda071.js"><link rel="prefetch" href="/vuepress-blog/assets/js/58.e4e2e95d.js"><link rel="prefetch" href="/vuepress-blog/assets/js/59.fc9cc726.js"><link rel="prefetch" href="/vuepress-blog/assets/js/6.5b653d91.js"><link rel="prefetch" href="/vuepress-blog/assets/js/60.d0cdc48d.js"><link rel="prefetch" href="/vuepress-blog/assets/js/61.e663cede.js"><link rel="prefetch" href="/vuepress-blog/assets/js/62.1b3ef15b.js"><link rel="prefetch" href="/vuepress-blog/assets/js/63.b17e2bda.js"><link rel="prefetch" href="/vuepress-blog/assets/js/64.3b7bc255.js"><link rel="prefetch" href="/vuepress-blog/assets/js/65.bb24c420.js"><link rel="prefetch" href="/vuepress-blog/assets/js/7.fcec5877.js"><link rel="prefetch" href="/vuepress-blog/assets/js/vendors~docsearch.a0f89813.js">
+    <link rel="stylesheet" href="/vuepress-blog/assets/css/0.styles.631b7830.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/vuepress-blog/" class="home-link router-link-active"><!----> <span class="site-name">Happyblog</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/vuepress-blog/" class="nav-link">
+  首页
+</a></div><div class="nav-item"><a href="/vuepress-blog/miniVue2/" class="nav-link router-link-active">
+  mini-Vue2 文档
+</a></div><div class="nav-item"><a href="/vuepress-blog/performance/" class="nav-link">
+  性能优化
+</a></div><div class="nav-item"><a href="/vuepress-blog/chat/" class="nav-link">
+  前端杂谈
+</a></div><div class="nav-item"><a href="https://github.com/Nwu23787/mini-Vue2" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  GitHub
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/vuepress-blog/" class="nav-link">
+  首页
+</a></div><div class="nav-item"><a href="/vuepress-blog/miniVue2/" class="nav-link router-link-active">
+  mini-Vue2 文档
+</a></div><div class="nav-item"><a href="/vuepress-blog/performance/" class="nav-link">
+  性能优化
+</a></div><div class="nav-item"><a href="/vuepress-blog/chat/" class="nav-link">
+  前端杂谈
+</a></div><div class="nav-item"><a href="https://github.com/Nwu23787/mini-Vue2" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  GitHub
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>mini-Vue2 文档</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/vuepress-blog/miniVue2/1.html" aria-current="page" class="active sidebar-link">响应式数据的监听</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/vuepress-blog/miniVue2/1.html#_1、简述" class="sidebar-link">1、简述</a></li><li class="sidebar-sub-header"><a href="/vuepress-blog/miniVue2/1.html#_2、从-new-vue-说起" class="sidebar-link">2、从 new Vue 说起</a></li><li class="sidebar-sub-header"><a href="/vuepress-blog/miniVue2/1.html#_3、实现普通对象的监听" class="sidebar-link">3、实现普通对象的监听</a></li><li class="sidebar-sub-header"><a href="/vuepress-blog/miniVue2/1.html#_4、实现数组的监听" class="sidebar-link">4、实现数组的监听</a></li></ul></li><li><a href="/vuepress-blog/miniVue2/2.html" class="sidebar-link">render 函数和 h 函数</a></li><li><a href="/vuepress-blog/miniVue2/3.html" class="sidebar-link">模版解析为 AST 语法树</a></li><li><a href="/vuepress-blog/miniVue2/4.html" class="sidebar-link">AST语法树转化为 render 函数</a></li><li><a href="/vuepress-blog/miniVue2/5.html" class="sidebar-link">虚拟DOM转化为真实DOM</a></li><li><a href="/vuepress-blog/miniVue2/6.html" class="sidebar-link">依赖收集和视图同步更新</a></li><li><a href="/vuepress-blog/miniVue2/7.html" class="sidebar-link">$nextTick</a></li><li><a href="/vuepress-blog/miniVue2/8.html" class="sidebar-link">异步更新</a></li><li><a href="/vuepress-blog/miniVue2/9.html" class="sidebar-link">数组的依赖收集和更新</a></li><li><a href="/vuepress-blog/miniVue2/10.html" class="sidebar-link">computed 计算属性</a></li><li><a href="/vuepress-blog/miniVue2/11.html" class="sidebar-link">watch 侦听器</a></li><li><a href="/vuepress-blog/miniVue2/12.html" class="sidebar-link">mixin</a></li></ul></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>mini-Vue-router3 文档</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>mini-Vuex3 文档</span> <span class="arrow right"></span></p> <!----></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="vue2-中如何实现响应式数据的监听"><a href="#vue2-中如何实现响应式数据的监听" class="header-anchor">#</a> Vue2 中如何实现响应式数据的监听</h1> <h2 id="_1、简述"><a href="#_1、简述" class="header-anchor">#</a> 1、简述</h2> <p>​		Vue 遵循了 MVVM 的设计模式，具体来说就是响应式数据发生变化，视图层会同步更新。那么，Vue 是如何监听到响应式数据的变化的呢？本文以 Vue2 的源码为例，简要的对 Vue 监听响应式数据的原理进行分析，以下代码均为作者根据源码手写，刨除了源码中很多繁杂的代码，较为简要直观。本文只涉及数据的监听，不是完整的响应式原理。</p> <h2 id="_2、从-new-vue-说起"><a href="#_2、从-new-vue-说起" class="header-anchor">#</a> 2、从 new Vue 说起</h2> <p>​		从源码角度看，所谓 Vue 其实就是一个构造函数，用户传入 Vue 的选项，通过 new Vue 的方式获得 Vue 的实例。所以，我们将打包后的源码挂载到了 global 实例上，命名为 Vue，供用户使用。具体实现是通过 rollup 的配置来实现的</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">//rollup.config.js</span>
+<span class="token comment">// 默认导出一个对象，作为打包的配置文件</span>
+<span class="token keyword">import</span> bable <span class="token keyword">from</span> <span class="token string">&quot;rollup-plugin-babel&quot;</span><span class="token punctuation">;</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 配置打包入口文件</span>
+  <span class="token literal-property property">input</span><span class="token operator">:</span> <span class="token string">&quot;./src/index.js&quot;</span><span class="token punctuation">,</span>
+  <span class="token comment">//   配置打包出口</span>
+  <span class="token literal-property property">output</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token literal-property property">file</span><span class="token operator">:</span> <span class="token string">&quot;./dist/vue.js&quot;</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">name</span><span class="token operator">:</span> <span class="token string">&quot;Vue&quot;</span><span class="token punctuation">,</span> <span class="token comment">//将打包之后的对象挂载到 global 上，即新增一个global.Vue</span>
+    <span class="token literal-property property">format</span><span class="token operator">:</span> <span class="token string">&quot;umd&quot;</span><span class="token punctuation">,</span> <span class="token comment">//esm es6</span>
+    <span class="token literal-property property">sourcemap</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token comment">// 可以调试源代码</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token literal-property property">plugins</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token function">bable</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+      <span class="token literal-property property">exclude</span><span class="token operator">:</span> <span class="token string">&quot;node_modules/**&quot;</span><span class="token punctuation">,</span> <span class="token comment">//排除node_modules下的所有文件和文件夹</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre></div><p>​		当用户使用 new Vue 时，就会执行源码中的构造函数，构造函数中会进行一系列初始化操作</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// index.js</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> initMixin <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&quot;./init&quot;</span>
+
+<span class="token comment">// Vue 实例的构造函数，options 为用户传入的选项（Vue2 的选项式API）</span>
+<span class="token keyword">function</span> <span class="token function">Vue</span><span class="token punctuation">(</span><span class="token parameter">options</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token comment">// 初始化操作</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">_init</span><span class="token punctuation">(</span>options<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token function">initMixin</span><span class="token punctuation">(</span>Vue<span class="token punctuation">)</span> <span class="token comment">//将 _init 方法添加到 Vue 实例原型上，供 Vue 实例调用</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> Vue
+</code></pre></div><h2 id="_3、实现普通对象的监听"><a href="#_3、实现普通对象的监听" class="header-anchor">#</a> 3、实现普通对象的监听</h2> <h3 id="_3-1-获取需要监听的-data-对象"><a href="#_3-1-获取需要监听的-data-对象" class="header-anchor">#</a> 3.1 获取需要监听的 data 对象</h3> <p>​		经常会有人说，Vue 的 data 是函数，而不是对象。其实这种说法是错误的，在 Vue 2 中，根实例的 data 可以是对象，完全没有任何问题。如下：</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">new</span> <span class="token class-name">Vue</span><span class="token punctuation">(</span>data<span class="token operator">:</span><span class="token punctuation">{</span>
+        <span class="token literal-property property">name</span><span class="token operator">:</span><span class="token string">'zs'</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">age</span><span class="token operator">:</span><span class="token number">18</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre></div><p>​		但是，组件的 data 一定是函数，因为组件最大的特性就是可复用性，我们当然不会希望多处组件共用了同一个 data 实例。</p> <p>​		所以，对于用户传入的 data 数据，我们需要进行判定。如果 data 是函数，那么我们就执行这个函数，获得 data 对象。</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// state.js</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> observe <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&quot;./observe/index&quot;</span>
+
+<span class="token comment">/**
+ * 初始化状态，分发init
+ * @param {Object} vm Vue 实例
+ */</span>
+<span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">initState</span><span class="token punctuation">(</span><span class="token parameter">vm</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> opts <span class="token operator">=</span> vm<span class="token punctuation">.</span>$options
+    <span class="token comment">// 是否传入data</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>opts<span class="token punctuation">.</span>data<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">initData</span><span class="token punctuation">(</span>vm<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">/**
+ * 代理对象，非真正的 Proxy
+ * @param {Object} vm Vue 实例
+ * @param {String} target 要代理的属性
+ * @param {String} key target的建
+ */</span>
+<span class="token keyword">function</span> <span class="token function">proxy</span><span class="token punctuation">(</span><span class="token parameter">vm<span class="token punctuation">,</span> target<span class="token punctuation">,</span> key</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    Object<span class="token punctuation">.</span><span class="token function">defineProperty</span><span class="token punctuation">(</span>vm<span class="token punctuation">,</span> key<span class="token punctuation">,</span> <span class="token punctuation">{</span>
+        <span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment">// 访问 vm[key] 就是在访问 vm._data[key]，即 vm[target][key]</span>
+            <span class="token keyword">return</span> vm<span class="token punctuation">[</span>target<span class="token punctuation">]</span><span class="token punctuation">[</span>key<span class="token punctuation">]</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token function">set</span><span class="token punctuation">(</span>newValue<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            vm<span class="token punctuation">[</span>target<span class="token punctuation">]</span><span class="token punctuation">[</span>key<span class="token punctuation">]</span> <span class="token operator">=</span> newValue
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">/**
+ * 初始化 data 选项
+ * @param {Object} vm Vue 实例
+ */</span>
+
+<span class="token keyword">function</span> <span class="token function">initData</span><span class="token punctuation">(</span><span class="token parameter">vm</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">let</span> data <span class="token operator">=</span> vm<span class="token punctuation">.</span>$options<span class="token punctuation">.</span>data
+    <span class="token comment">// 判断 data 的类型，如果是函数，执行它，获得对象。要注意this问题，this应该是Vue实例</span>
+    data <span class="token operator">=</span> <span class="token keyword">typeof</span> data <span class="token operator">===</span> <span class="token string">'function'</span> <span class="token operator">?</span> <span class="token function">data</span><span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>vm<span class="token punctuation">)</span> <span class="token operator">:</span> data
+
+    vm<span class="token punctuation">.</span>_data <span class="token operator">=</span> data
+    <span class="token comment">// 对数据对象进行劫持</span>
+    <span class="token function">observe</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span>
+    <span class="token comment">// 代理一层，方便用户访问</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> key <span class="token keyword">in</span> data<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">proxy</span><span class="token punctuation">(</span>vm<span class="token punctuation">,</span> <span class="token string">'_data'</span><span class="token punctuation">,</span> key<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>​		获取到 data 对象之后，使用 observe 方法进行数据的监听（劫持）</p> <p>​		PS：其中的 proxy 方法纯粹是为了方便用户使用而设计的，我们希望用户通过 <strong>Vue 实例 “点” 变量名</strong> 的方式就能获取到对应的数据，所以我们将 Vue 实例的 <code>_data</code> 属性通过 defineProperty 做了一层代理，使得用户不必采用 vm._data.变量名 的方式来访问数据，而是通过 vm.变量名的方式就可以访问到。</p> <h3 id="_3-2-进行对象的监听"><a href="#_3-2-进行对象的监听" class="header-anchor">#</a> 3.2 进行对象的监听</h3> <p>直接附上实现对象监听的关键源码</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// observe/index.js</span>
+<span class="token keyword">import</span> newProto <span class="token keyword">from</span> <span class="token string">&quot;./array&quot;</span>
+
+<span class="token comment">/**
+ * 将传入的 data 对象使用 defineproperty 进行劫持
+ * @param {Object} data  要实现响应式的对象
+ * @returns {} 
+ */</span>
+<span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">observe</span><span class="token punctuation">(</span><span class="token parameter">data</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+
+    <span class="token comment">// 判断 data 是否需要劫持，非对象不劫持</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">typeof</span> data <span class="token operator">!==</span> <span class="token string">'object'</span> <span class="token operator">||</span> <span class="token keyword">typeof</span> data <span class="token operator">==</span> <span class="token string">'null'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">// 判断 data 是否已经被监听过了</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>data<span class="token punctuation">.</span>__ob__<span class="token punctuation">)</span> <span class="token keyword">return</span> data
+
+    <span class="token comment">//通过observer类进行监听</span>
+    <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Observer</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Observer</span> <span class="token punctuation">{</span>
+    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token parameter">data</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 把 data 对应的 Observer 实例添加到了 data 上，这样做的话，1 是可以通过监测是否存在_ob_属性来检测 data 是否已被监听过，2 是通过 _ob_ 可以访问到 walk 和 observerArray 以及其他的方法，便于其他地方使用</span>
+        <span class="token comment">// 必须把 _ob_ 设置为不可枚举属性才行，否则在递归遍历监听的时候会死循环</span>
+        Object<span class="token punctuation">.</span><span class="token function">defineProperty</span><span class="token punctuation">(</span>data<span class="token punctuation">,</span> <span class="token string">'__ob__'</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+            <span class="token literal-property property">value</span><span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">,</span>
+            <span class="token literal-property property">enumerable</span><span class="token operator">:</span> <span class="token boolean">false</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span>
+        <span class="token comment">// 判断data是否为数组，数组不用进行每一项的劫持</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>Array<span class="token punctuation">.</span><span class="token function">isArray</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment">// 通过修改data的原型，重写可以改变数组的方法</span>
+            data<span class="token punctuation">.</span>__proto__ <span class="token operator">=</span> newProto
+            <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">observerArray</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">walk</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment">// 遍历对象，进行劫持</span>
+    <span class="token function">walk</span><span class="token punctuation">(</span><span class="token parameter">data</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        Object<span class="token punctuation">.</span><span class="token function">keys</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token parameter">key</span> <span class="token operator">=&gt;</span> <span class="token function">defineReactive</span><span class="token punctuation">(</span>data<span class="token punctuation">,</span> key<span class="token punctuation">,</span> data<span class="token punctuation">[</span>key<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">// 实现数组监测</span>
+    <span class="token function">observerArray</span><span class="token punctuation">(</span><span class="token parameter">data</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">//  遍历数组，如果数组的子项是对象的话，要对这个对象进行劫持</span>
+        data<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token parameter">item</span> <span class="token operator">=&gt;</span> <span class="token function">observe</span><span class="token punctuation">(</span>item<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">/**
+ * 实现对象指定属性的劫持
+ * @param {Object} target 被劫持的对象
+ * @param {String} key 需要被劫持的属性
+ * @param {*} value 被劫持属性当前的值
+ */</span>
+<span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">defineReactive</span><span class="token punctuation">(</span><span class="token parameter">target<span class="token punctuation">,</span> key<span class="token punctuation">,</span> value</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 对属性值进行深层递归遍历</span>
+    <span class="token function">observe</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span>
+    <span class="token comment">// 闭包。对外暴露了 set 和 get 方法，从而使 value 值不会被回收</span>
+    Object<span class="token punctuation">.</span><span class="token function">defineProperty</span><span class="token punctuation">(</span>target<span class="token punctuation">,</span> key<span class="token punctuation">,</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 访问属性的时候，触发get</span>
+        <span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'get'</span><span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">return</span> value
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token comment">// 修改属性的时候，触发set</span>
+        <span class="token function">set</span><span class="token punctuation">(</span>newValue<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'set'</span><span class="token punctuation">,</span> newValue<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>newValue <span class="token operator">===</span> value<span class="token punctuation">)</span> <span class="token keyword">return</span>
+            <span class="token comment">// 修改之后重新劫持，因为如果用户将值修改为对象，那么要对这个对象进行深度劫持</span>
+            <span class="token function">observe</span><span class="token punctuation">(</span>newValue<span class="token punctuation">)</span>
+            value <span class="token operator">=</span> newValue
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>​		首先，在初始化的时候，调用了 observe 方法，这个方法的主要作用是判断传入的数据是不是对象，如果是对象，那么就调用 new Observer，也就是在遍历对象的同时使用 Object.defineProperty 重新定义对象的<strong>每一个</strong>属性，设置 set 和 get 方法。当我们访问相应对象的属性的时候，就会触发 get 方法，修改属性时，就会触发 set 方法。如果传入的不是对象，那么不用做任何处理，因为 defineProperty 只能劫持对象的属性。在遍历对象的属性时，会对每一个属性再次调用 observe 方法，进行深层的递归遍历。这样就实现了对数据的监听。在 index.html 中进行测试：</p> <div class="language-html extra-class"><pre class="language-html"><code>// index.html
+<span class="token doctype"><span class="token punctuation">&lt;!</span><span class="token doctype-tag">DOCTYPE</span> <span class="token name">html</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>en<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>UTF-8<span class="token punctuation">&quot;</span></span> <span class="token punctuation">/&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>viewport<span class="token punctuation">&quot;</span></span> <span class="token attr-name">content</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>width=device-width, initial-scale=1.0<span class="token punctuation">&quot;</span></span> <span class="token punctuation">/&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">&gt;</span></span>Document<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>vue.js<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span><span class="token script"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">&gt;</span></span><span class="token script"><span class="token language-javascript">
+      <span class="token keyword">const</span> vm <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Vue</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+        <span class="token function">data</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+          <span class="token keyword">return</span> <span class="token punctuation">{</span>
+           <span class="token literal-property property">name</span><span class="token operator">:</span><span class="token string">'zs'</span><span class="token punctuation">,</span>
+           <span class="token literal-property property">age</span><span class="token operator">:</span><span class="token number">34</span><span class="token punctuation">,</span>
+           <span class="token literal-property property">obj</span><span class="token operator">:</span><span class="token punctuation">{</span>
+            <span class="token literal-property property">name</span><span class="token operator">:</span><span class="token string">'ls'</span><span class="token punctuation">,</span>
+            <span class="token literal-property property">age</span><span class="token operator">:</span><span class="token number">122</span>
+           <span class="token punctuation">}</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span>
+      console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>vm<span class="token punctuation">)</span><span class="token punctuation">;</span> 
+      vm<span class="token punctuation">.</span>name
+      vm<span class="token punctuation">.</span>obj<span class="token punctuation">.</span>name <span class="token operator">=</span> <span class="token number">18</span>
+    </span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">&gt;</span></span>
+
+</code></pre></div><p>输出结果：</p> <img src="C:\Users\T\AppData\Roaming\Typora\typora-user-images\image-20240414200922666.png" alt="image-20240414200922666" style="zoom:80%;"> <p>​		可以看到，Vue 为每一个 data 中的对象，以及该对象的每一个属性都添加了 set 和 get 方法，并且在取值和赋值时，能正常触发。</p> <h3 id="_3-3-为什么-observer-是一个类"><a href="#_3-3-为什么-observer-是一个类" class="header-anchor">#</a> 3.3 为什么 Observer 是一个类？</h3> <p>关于这个问题，个人的理解是：</p> <p>​		1、可以通过将相应对象对应的 Observer 实例对象挂载回对象上，从而在进行数据监听处理时，可以通过判断对象上是否存在这个Observer的实例对象，来判断该对象是否已经被监听过。在源码中体现为，将 Observer 类挂载会对象的<code>__ob__</code>属性上，然后在observe 方法中对传入的数据进行判断，判断其是否已经含有 <code>__ob__</code>属性，从而得知该数据是否已经被监听。当然，这并不是主要原因。</p> <p>​		2、可以通过<code>__ob__</code>这个属性，获取到 Observer 类的 walk 和 observerArray方法。这两个方法可以对传入的对象或数组实现监听。在后续其他地方，比如重写数组的push方法时，需要对新增的数组项实现监听，那么就需要调用 Observer类中的 observerArray 这个方法。通过将 Observer 类实例挂载到 data 上的方式，我们可以在各个地方更轻松的访问到 observerArray 和 walk 方法，而不是使用 import 和 export。</p> <h2 id="_4、实现数组的监听"><a href="#_4、实现数组的监听" class="header-anchor">#</a> 4、实现数组的监听</h2> <h3 id="_4-1-源码分析"><a href="#_4-1-源码分析" class="header-anchor">#</a> 4.1 源码分析</h3> <p>​		其实 Vue 完全可以不将数组单独处理，将数组当做普通对象一样处理，完全没有任何问题，也不会出现 “通过数组下标修改数组项，Vue 监听不到” 的这种 bug 了。但是，出于性能考虑，Vue 并没有这样做。原因有二：</p> <p>​	1、<strong>性能原因</strong>。数组项可能会有很多，对每一项进 defineProperty 的劫持，十分浪费性能。对此尤雨溪的回复是：“通过对每一项进行劫持，用户获取的用户体验，和实际的性能损耗不成正比”。</p> <p>​	2、<strong>用户很少会通过下标的方式去修改数组项</strong>。数组和对象不同，一般情况下，我们很少通过类似于 <code>array[888]</code> 的方式去直接修改数组的某一项。</p> <p>所以，Vue2 中对数组实现监听的方式是通过重写可能改变数组的 7 个方法来实现的。具体如下：</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// observe/index.js</span>
+<span class="token keyword">class</span> <span class="token class-name">Observer</span> <span class="token punctuation">{</span>
+    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token parameter">data</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 把 data 对应的 Observer 实例添加到了 data 上，这样做的话，1 是可以通过监测是否存在_ob_属性来检测 data 是否已被监听过，2 是通过 _ob_ 可以访问到 walk 和 observerArray 以及其他的方法，便于其他地方使用</span>
+        <span class="token comment">// 必须把 _ob_ 设置为不可枚举属性才行，否则在递归遍历监听的时候会死循环</span>
+        Object<span class="token punctuation">.</span><span class="token function">defineProperty</span><span class="token punctuation">(</span>data<span class="token punctuation">,</span> <span class="token string">'__ob__'</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+            <span class="token literal-property property">value</span><span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">,</span>
+            <span class="token literal-property property">enumerable</span><span class="token operator">:</span> <span class="token boolean">false</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span>
+        <span class="token comment">// 判断data是否为数组，数组不用进行每一项的劫持</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>Array<span class="token punctuation">.</span><span class="token function">isArray</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment">// 通过修改data的原型，重写可以改变数组的方法</span>
+            data<span class="token punctuation">.</span>__proto__ <span class="token operator">=</span> newProto
+            <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">observerArray</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">walk</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment">// 遍历对象，进行劫持</span>
+    <span class="token function">walk</span><span class="token punctuation">(</span><span class="token parameter">data</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        Object<span class="token punctuation">.</span><span class="token function">keys</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token parameter">key</span> <span class="token operator">=&gt;</span> <span class="token function">defineReactive</span><span class="token punctuation">(</span>data<span class="token punctuation">,</span> key<span class="token punctuation">,</span> data<span class="token punctuation">[</span>key<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">// 实现数组监测</span>
+    <span class="token function">observerArray</span><span class="token punctuation">(</span><span class="token parameter">data</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">//  遍历数组，如果数组的子项是对象的话，要对这个对象进行劫持</span>
+        data<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token parameter">item</span> <span class="token operator">=&gt;</span> <span class="token function">observe</span><span class="token punctuation">(</span>item<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// observe/array.js</span>
+<span class="token comment">// 重写数组中可以改变数组的7个方法，并返回重写后的原型对象</span>
+<span class="token keyword">let</span> oldProto <span class="token operator">=</span> <span class="token class-name">Array</span><span class="token punctuation">.</span>prototype
+<span class="token comment">// 不可以直接修改数组的原型，通过类似于子类重写的方式，使 newProto 的原型指向原来数组的原型，在 newProto 上重写方法不会影响到原数组原型</span>
+<span class="token keyword">let</span> newProto <span class="token operator">=</span> Object<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span>oldProto<span class="token punctuation">)</span>
+
+<span class="token keyword">const</span> methods <span class="token operator">=</span> <span class="token punctuation">[</span>
+    <span class="token string">'push'</span><span class="token punctuation">,</span>
+    <span class="token string">'pop'</span><span class="token punctuation">,</span>
+    <span class="token string">'shift'</span><span class="token punctuation">,</span>
+    <span class="token string">'unshift'</span><span class="token punctuation">,</span>
+    <span class="token string">'reverse'</span><span class="token punctuation">,</span>
+    <span class="token string">'sort'</span><span class="token punctuation">,</span>
+    <span class="token string">'splice'</span>
+<span class="token punctuation">]</span>
+
+methods<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token parameter">method</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    newProto<span class="token punctuation">[</span>method<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token operator">...</span>args</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 调用原有原型上的相同方法，但要注意this问题</span>
+        <span class="token keyword">const</span> res <span class="token operator">=</span> oldProto<span class="token punctuation">[</span>method<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> <span class="token operator">...</span>args<span class="token punctuation">)</span>
+        <span class="token comment">// 获取到新增的元素</span>
+        <span class="token keyword">let</span> newNode <span class="token operator">=</span> <span class="token keyword">undefined</span>
+        <span class="token comment">// 对于新增元素的方法，必须给新增的元素添加监听</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>method <span class="token operator">===</span> <span class="token string">'push'</span> <span class="token operator">||</span> method <span class="token operator">===</span> <span class="token string">'unshift'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            newNode <span class="token operator">=</span> args
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>method <span class="token operator">===</span> <span class="token string">'splice'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment">// spilce 的参数除掉前两个参数之后，才是新增的元素</span>
+            newNode <span class="token operator">=</span> args<span class="token punctuation">.</span><span class="token function">slice</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+		<span class="token comment">// 监听新添加的元素</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>newNode<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>__ob__<span class="token punctuation">.</span><span class="token function">observerArray</span><span class="token punctuation">(</span>newNode<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> res
+    <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> newProto
+</code></pre></div><p>在 index.html 中进行测试：</p> <div class="language-js extra-class"><pre class="language-js"><code>      <span class="token keyword">const</span> vm <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Vue</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+        <span class="token function">data</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+          <span class="token keyword">return</span> <span class="token punctuation">{</span>
+           <span class="token literal-property property">name</span><span class="token operator">:</span><span class="token string">'zs'</span><span class="token punctuation">,</span>
+           <span class="token literal-property property">age</span><span class="token operator">:</span><span class="token number">34</span><span class="token punctuation">,</span>
+           <span class="token literal-property property">obj</span><span class="token operator">:</span><span class="token punctuation">{</span>
+            <span class="token literal-property property">name</span><span class="token operator">:</span><span class="token string">'ls'</span><span class="token punctuation">,</span>
+            <span class="token literal-property property">age</span><span class="token operator">:</span><span class="token number">122</span>
+           <span class="token punctuation">}</span><span class="token punctuation">,</span>
+           <span class="token literal-property property">hobby</span><span class="token operator">:</span><span class="token punctuation">[</span><span class="token string">'eat'</span><span class="token punctuation">,</span><span class="token string">'drink'</span><span class="token punctuation">]</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span>
+      vm<span class="token punctuation">.</span>hobby<span class="token punctuation">.</span><span class="token function">splice</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token string">'12'</span><span class="token punctuation">,</span><span class="token punctuation">{</span><span class="token literal-property property">name</span><span class="token operator">:</span><span class="token string">'ls'</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+      console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>vm<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><p>结果：</p> <img src="/vuepress-blog/assets/img/image-20240414220357722.ff66098d.png" alt="image-20240414220357722" style="zoom:67%;"> <p>​		可见，通过 splice 后新增的数组项中，对象数据被添加了 set 和 get 方法，而非对象元素并没有 set 和 get 方法，也就是并没有被监听。</p> <h3 id="_4-2-数组监听的性能瓶颈是因为数组遍历耗费性能吗"><a href="#_4-2-数组监听的性能瓶颈是因为数组遍历耗费性能吗" class="header-anchor">#</a> 4.2 数组监听的性能瓶颈是因为数组遍历耗费性能吗？</h3> <p>​		有些博客说，vue2 中没有按照处理对象的方式对数组的每一项添加监听的原因是因为遍历长数组很耗费性能。其实 Vue 的性能瓶颈点并不是在于遍历数组，而是为数组的每一项添加 defineproperty 劫持这个操作会耗费大量性能，我们在 observerArray 这个方法中其实可以看到， Vue 对数组的处理其实是进行了遍历的，但是并没有通过遍历 + defineproperty 的方式去进行每项的监听，而是对每项调用 observe 方法，也就是为对象项添加监听。可见对于数组处理的性能瓶颈并不在于遍历，而是为每一项添加 defineproperty 会浪费大量性能，否则完全可以在遍历的时候为每一项调用 defineReactive 方法，而不是 observe。</p></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><!----> <span class="next"><a href="/vuepress-blog/miniVue2/2.html">
+        render 函数和 h 函数
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/vuepress-blog/assets/js/app.f8677ea4.js" defer></script><script src="/vuepress-blog/assets/js/2.32f56e5c.js" defer></script><script src="/vuepress-blog/assets/js/1.a930a345.js" defer></script><script src="/vuepress-blog/assets/js/36.ece446f9.js" defer></script>
+  </body>
+</html>

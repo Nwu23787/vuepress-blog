@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>router-link 和 router-view | Happyblog</title>
+    <meta name="generator" content="VuePress 1.9.10">
+    
+    <meta name="description" content="基于 vuepress 的简易博客平台">
+    
+    <link rel="preload" href="/vuepress-blog/assets/css/0.styles.631b7830.css" as="style"><link rel="preload" href="/vuepress-blog/assets/js/app.f8677ea4.js" as="script"><link rel="preload" href="/vuepress-blog/assets/js/2.32f56e5c.js" as="script"><link rel="preload" href="/vuepress-blog/assets/js/1.a930a345.js" as="script"><link rel="preload" href="/vuepress-blog/assets/js/56.6d799974.js" as="script"><link rel="prefetch" href="/vuepress-blog/assets/js/10.ab76fc9b.js"><link rel="prefetch" href="/vuepress-blog/assets/js/11.8f72b06d.js"><link rel="prefetch" href="/vuepress-blog/assets/js/12.428f6f98.js"><link rel="prefetch" href="/vuepress-blog/assets/js/13.eb47b2b6.js"><link rel="prefetch" href="/vuepress-blog/assets/js/14.7257e695.js"><link rel="prefetch" href="/vuepress-blog/assets/js/15.bd1b03c3.js"><link rel="prefetch" href="/vuepress-blog/assets/js/16.7a561afc.js"><link rel="prefetch" href="/vuepress-blog/assets/js/17.cd516f79.js"><link rel="prefetch" href="/vuepress-blog/assets/js/18.42e9f2b1.js"><link rel="prefetch" href="/vuepress-blog/assets/js/19.4958156f.js"><link rel="prefetch" href="/vuepress-blog/assets/js/20.cd1f9a1c.js"><link rel="prefetch" href="/vuepress-blog/assets/js/21.e4fea2d1.js"><link rel="prefetch" href="/vuepress-blog/assets/js/22.0919633c.js"><link rel="prefetch" href="/vuepress-blog/assets/js/23.331c698f.js"><link rel="prefetch" href="/vuepress-blog/assets/js/24.5874fb5a.js"><link rel="prefetch" href="/vuepress-blog/assets/js/25.e56a5813.js"><link rel="prefetch" href="/vuepress-blog/assets/js/26.7e912fb0.js"><link rel="prefetch" href="/vuepress-blog/assets/js/27.aa11be6f.js"><link rel="prefetch" href="/vuepress-blog/assets/js/28.b8505e46.js"><link rel="prefetch" href="/vuepress-blog/assets/js/29.155d9866.js"><link rel="prefetch" href="/vuepress-blog/assets/js/3.d7d8640a.js"><link rel="prefetch" href="/vuepress-blog/assets/js/30.80297b92.js"><link rel="prefetch" href="/vuepress-blog/assets/js/31.977ccbdd.js"><link rel="prefetch" href="/vuepress-blog/assets/js/32.767609f9.js"><link rel="prefetch" href="/vuepress-blog/assets/js/33.44891ea8.js"><link rel="prefetch" href="/vuepress-blog/assets/js/34.f516ab0b.js"><link rel="prefetch" href="/vuepress-blog/assets/js/35.151a5daf.js"><link rel="prefetch" href="/vuepress-blog/assets/js/36.ece446f9.js"><link rel="prefetch" href="/vuepress-blog/assets/js/37.37735106.js"><link rel="prefetch" href="/vuepress-blog/assets/js/38.45a9e8b8.js"><link rel="prefetch" href="/vuepress-blog/assets/js/39.0fcd7dcc.js"><link rel="prefetch" href="/vuepress-blog/assets/js/4.ecf7f9e8.js"><link rel="prefetch" href="/vuepress-blog/assets/js/40.621682ab.js"><link rel="prefetch" href="/vuepress-blog/assets/js/41.d03d4354.js"><link rel="prefetch" href="/vuepress-blog/assets/js/42.edf41024.js"><link rel="prefetch" href="/vuepress-blog/assets/js/43.8cd60945.js"><link rel="prefetch" href="/vuepress-blog/assets/js/44.de2cd4e9.js"><link rel="prefetch" href="/vuepress-blog/assets/js/45.4fb41246.js"><link rel="prefetch" href="/vuepress-blog/assets/js/46.b26d762d.js"><link rel="prefetch" href="/vuepress-blog/assets/js/47.3bb572d2.js"><link rel="prefetch" href="/vuepress-blog/assets/js/48.dc6af168.js"><link rel="prefetch" href="/vuepress-blog/assets/js/49.9511edba.js"><link rel="prefetch" href="/vuepress-blog/assets/js/5.8cea2090.js"><link rel="prefetch" href="/vuepress-blog/assets/js/50.2e05304d.js"><link rel="prefetch" href="/vuepress-blog/assets/js/51.f72b0b54.js"><link rel="prefetch" href="/vuepress-blog/assets/js/52.1650a6e6.js"><link rel="prefetch" href="/vuepress-blog/assets/js/53.36c638aa.js"><link rel="prefetch" href="/vuepress-blog/assets/js/54.5931bcf4.js"><link rel="prefetch" href="/vuepress-blog/assets/js/55.f48c6b88.js"><link rel="prefetch" href="/vuepress-blog/assets/js/57.0abda071.js"><link rel="prefetch" href="/vuepress-blog/assets/js/58.e4e2e95d.js"><link rel="prefetch" href="/vuepress-blog/assets/js/59.fc9cc726.js"><link rel="prefetch" href="/vuepress-blog/assets/js/6.5b653d91.js"><link rel="prefetch" href="/vuepress-blog/assets/js/60.d0cdc48d.js"><link rel="prefetch" href="/vuepress-blog/assets/js/61.e663cede.js"><link rel="prefetch" href="/vuepress-blog/assets/js/62.1b3ef15b.js"><link rel="prefetch" href="/vuepress-blog/assets/js/63.b17e2bda.js"><link rel="prefetch" href="/vuepress-blog/assets/js/64.3b7bc255.js"><link rel="prefetch" href="/vuepress-blog/assets/js/65.bb24c420.js"><link rel="prefetch" href="/vuepress-blog/assets/js/7.fcec5877.js"><link rel="prefetch" href="/vuepress-blog/assets/js/vendors~docsearch.a0f89813.js">
+    <link rel="stylesheet" href="/vuepress-blog/assets/css/0.styles.631b7830.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/vuepress-blog/" class="home-link router-link-active"><!----> <span class="site-name">Happyblog</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/vuepress-blog/" class="nav-link">
+  首页
+</a></div><div class="nav-item"><a href="/vuepress-blog/miniVue2/" class="nav-link router-link-active">
+  mini-Vue2 文档
+</a></div><div class="nav-item"><a href="/vuepress-blog/performance/" class="nav-link">
+  性能优化
+</a></div><div class="nav-item"><a href="/vuepress-blog/chat/" class="nav-link">
+  前端杂谈
+</a></div><div class="nav-item"><a href="https://github.com/Nwu23787/mini-Vue2" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  GitHub
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/vuepress-blog/" class="nav-link">
+  首页
+</a></div><div class="nav-item"><a href="/vuepress-blog/miniVue2/" class="nav-link router-link-active">
+  mini-Vue2 文档
+</a></div><div class="nav-item"><a href="/vuepress-blog/performance/" class="nav-link">
+  性能优化
+</a></div><div class="nav-item"><a href="/vuepress-blog/chat/" class="nav-link">
+  前端杂谈
+</a></div><div class="nav-item"><a href="https://github.com/Nwu23787/mini-Vue2" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  GitHub
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>mini-Vue2 文档</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>mini-Vue-router3 文档</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/vuepress-blog/miniVue2/router/install.html" class="sidebar-link">install</a></li><li><a href="/vuepress-blog/miniVue2/router/路由映射表与动态路由.html" class="sidebar-link">路由映射表与动态路由</a></li><li><a href="/vuepress-blog/miniVue2/router/路由切换.html" class="sidebar-link">路由切换</a></li><li><a href="/vuepress-blog/miniVue2/router/router-link 和 router-view.html" class="active sidebar-link">router-link 和 router-view</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/vuepress-blog/miniVue2/router/router-link 和 router-view.html#router-link" class="sidebar-link">router-link</a></li><li class="sidebar-sub-header"><a href="/vuepress-blog/miniVue2/router/router-link 和 router-view.html#router-view" class="sidebar-link">router-view</a></li></ul></li><li><a href="/vuepress-blog/miniVue2/router/全局路由守卫.html" class="sidebar-link">全局路由守卫</a></li></ul></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>mini-Vuex3 文档</span> <span class="arrow right"></span></p> <!----></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="router-link-和-router-view"><a href="#router-link-和-router-view" class="header-anchor">#</a> router-link 和 router-view</h1> <p>router-link 和 router-view 是 Vue-Router 中定义的两个全局组件，定义的位置位于 <code>src/components</code> 文件夹下。</p> <h2 id="router-link"><a href="#router-link" class="header-anchor">#</a> router-link</h2> <p>router-link 用于切换组件，默认情况下会被渲染为 <code>&lt;a&gt;</code> 标签，点击时会调用 push 方法改变路由，跳转的路由通过 <code>to</code> 属性指定。</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// 默认渲染为 a 元素</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>tag <span class="token operator">===</span> <span class="token string">'a'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      data<span class="token punctuation">.</span>on <span class="token operator">=</span> on
+      data<span class="token punctuation">.</span>attrs <span class="token operator">=</span> <span class="token punctuation">{</span> href <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+      <span class="token keyword">const</span> a <span class="token operator">=</span> <span class="token function">findAnchor</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>$slots<span class="token punctuation">.</span>default<span class="token punctuation">)</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>a<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        a<span class="token punctuation">.</span>isStatic <span class="token operator">=</span> <span class="token boolean">false</span>
+        <span class="token keyword">const</span> aData <span class="token operator">=</span> <span class="token punctuation">(</span>a<span class="token punctuation">.</span>data <span class="token operator">=</span> <span class="token function">extend</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span> a<span class="token punctuation">.</span>data<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        aData<span class="token punctuation">.</span>on <span class="token operator">=</span> on
+        <span class="token keyword">const</span> aAttrs <span class="token operator">=</span> <span class="token punctuation">(</span>a<span class="token punctuation">.</span>data<span class="token punctuation">.</span>attrs <span class="token operator">=</span> <span class="token function">extend</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span> a<span class="token punctuation">.</span>data<span class="token punctuation">.</span>attrs<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        aAttrs<span class="token punctuation">.</span>href <span class="token operator">=</span> href
+      <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        data<span class="token punctuation">.</span>on <span class="token operator">=</span> on
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+<span class="token comment">// 点击切换路由</span>
+<span class="token keyword">const</span> <span class="token function-variable function">handler</span> <span class="token operator">=</span> <span class="token parameter">e</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">guardEvent</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>replace<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment">// replace路由</span>
+      router<span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span>location<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+      <span class="token comment">// push 路由</span>
+      router<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>location<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h2 id="router-view"><a href="#router-view" class="header-anchor">#</a> router-view</h2> <p>router-view 是一个<strong>函数式组件</strong>，渲染路径匹配到的视图组件。其本身不会被渲染为真实的节点，更多的是做一个占位标记的作用，标识组件应该挂载的位置。我们来看 mini-vue-router3 中对 router-view 的简单实现：</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// 定义 &lt;router-view&gt; 全局组件</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 此组件为函数式组件</span>
+    <span class="token literal-property property">functional</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+    <span class="token function">render</span><span class="token punctuation">(</span><span class="token parameter">h<span class="token punctuation">,</span> <span class="token punctuation">{</span> parent<span class="token punctuation">,</span> data <span class="token punctuation">}</span></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">//标记位，标记此组件已渲染过</span>
+        data<span class="token punctuation">.</span>routerView <span class="token operator">=</span> <span class="token boolean">true</span>
+        <span class="token comment">// 获取当前路由信息 </span>
+        <span class="token keyword">let</span> route <span class="token operator">=</span> parent<span class="token punctuation">.</span>$route
+
+        <span class="token comment">// 当前渲染组件的层级</span>
+        <span class="token keyword">let</span> depth <span class="token operator">=</span> <span class="token number">0</span>
+
+        <span class="token comment">// 计算当前需要渲染组件的层级</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>parent<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>parent<span class="token punctuation">.</span>$vnode <span class="token operator">&amp;&amp;</span> parent<span class="token punctuation">.</span>$vnode<span class="token punctuation">.</span>data<span class="token punctuation">.</span>routerView<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token comment">// 如果发现父组件上有 routerView 属性，则深度++</span>
+                depth<span class="token operator">++</span>
+            <span class="token punctuation">}</span>
+            <span class="token comment">// 继续递归向上查找</span>
+            parent <span class="token operator">=</span> parent<span class="token punctuation">.</span>$parent
+        <span class="token punctuation">}</span>
+
+        <span class="token comment">// 获取到当前要渲染的组件信息</span>
+        <span class="token keyword">let</span> record <span class="token operator">=</span> route<span class="token punctuation">.</span>matched<span class="token punctuation">[</span>depth<span class="token punctuation">]</span>
+
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>record<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment">// 没匹配到组件，返回一个空节点</span>
+            <span class="token keyword">return</span> <span class="token function">h</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token comment">// this.$slots 获取到所有的插槽</span>
+        <span class="token keyword">return</span> <span class="token function">h</span><span class="token punctuation">(</span>record<span class="token punctuation">.</span>component<span class="token punctuation">,</span> data<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>首先，设置了此组件为一个函数式组件，当当前路由没有匹配到组件时，返回一个空节点。</p> <p>其次就是如何确定需要渲染哪个组件？比如当前路径为 <code>/a/b/c</code> ，那么就对应 <code>/a、/a/b、/a/b/c</code> 三个组件，这三个组件对应的路由对象是按顺序放置在 route.matched 数组中的。所以，要渲染哪个组件，<strong>主要是确定好层级的问题</strong>。</p> <p>对于 Vue 父子组件间的渲染顺序，是先父组件初始化，在父组件挂载前，进行子组件的初始化。所以，是先父再子的顺序。要确定当前渲染组件的层级，我们就要去其祖先组件上<strong>寻找 router-view 属性</strong>，若存在，则将层级+1。一直找到最顶层的组件为止。若最后层级为 x，则渲染 metched 中下标为 x 的路由对象对应的组件。</p></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/vuepress-blog/miniVue2/router/路由切换.html" class="prev">
+        路由切换
+      </a></span> <span class="next"><a href="/vuepress-blog/miniVue2/router/全局路由守卫.html">
+        全局路由守卫
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/vuepress-blog/assets/js/app.f8677ea4.js" defer></script><script src="/vuepress-blog/assets/js/2.32f56e5c.js" defer></script><script src="/vuepress-blog/assets/js/1.a930a345.js" defer></script><script src="/vuepress-blog/assets/js/56.6d799974.js" defer></script>
+  </body>
+</html>

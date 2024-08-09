@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>路由映射表与动态路由 | Happyblog</title>
+    <meta name="generator" content="VuePress 1.9.10">
+    
+    <meta name="description" content="基于 vuepress 的简易博客平台">
+    
+    <link rel="preload" href="/vuepress-blog/assets/css/0.styles.631b7830.css" as="style"><link rel="preload" href="/vuepress-blog/assets/js/app.f8677ea4.js" as="script"><link rel="preload" href="/vuepress-blog/assets/js/2.32f56e5c.js" as="script"><link rel="preload" href="/vuepress-blog/assets/js/1.a930a345.js" as="script"><link rel="preload" href="/vuepress-blog/assets/js/59.fc9cc726.js" as="script"><link rel="prefetch" href="/vuepress-blog/assets/js/10.ab76fc9b.js"><link rel="prefetch" href="/vuepress-blog/assets/js/11.8f72b06d.js"><link rel="prefetch" href="/vuepress-blog/assets/js/12.428f6f98.js"><link rel="prefetch" href="/vuepress-blog/assets/js/13.eb47b2b6.js"><link rel="prefetch" href="/vuepress-blog/assets/js/14.7257e695.js"><link rel="prefetch" href="/vuepress-blog/assets/js/15.bd1b03c3.js"><link rel="prefetch" href="/vuepress-blog/assets/js/16.7a561afc.js"><link rel="prefetch" href="/vuepress-blog/assets/js/17.cd516f79.js"><link rel="prefetch" href="/vuepress-blog/assets/js/18.42e9f2b1.js"><link rel="prefetch" href="/vuepress-blog/assets/js/19.4958156f.js"><link rel="prefetch" href="/vuepress-blog/assets/js/20.cd1f9a1c.js"><link rel="prefetch" href="/vuepress-blog/assets/js/21.e4fea2d1.js"><link rel="prefetch" href="/vuepress-blog/assets/js/22.0919633c.js"><link rel="prefetch" href="/vuepress-blog/assets/js/23.331c698f.js"><link rel="prefetch" href="/vuepress-blog/assets/js/24.5874fb5a.js"><link rel="prefetch" href="/vuepress-blog/assets/js/25.e56a5813.js"><link rel="prefetch" href="/vuepress-blog/assets/js/26.7e912fb0.js"><link rel="prefetch" href="/vuepress-blog/assets/js/27.aa11be6f.js"><link rel="prefetch" href="/vuepress-blog/assets/js/28.b8505e46.js"><link rel="prefetch" href="/vuepress-blog/assets/js/29.155d9866.js"><link rel="prefetch" href="/vuepress-blog/assets/js/3.d7d8640a.js"><link rel="prefetch" href="/vuepress-blog/assets/js/30.80297b92.js"><link rel="prefetch" href="/vuepress-blog/assets/js/31.977ccbdd.js"><link rel="prefetch" href="/vuepress-blog/assets/js/32.767609f9.js"><link rel="prefetch" href="/vuepress-blog/assets/js/33.44891ea8.js"><link rel="prefetch" href="/vuepress-blog/assets/js/34.f516ab0b.js"><link rel="prefetch" href="/vuepress-blog/assets/js/35.151a5daf.js"><link rel="prefetch" href="/vuepress-blog/assets/js/36.ece446f9.js"><link rel="prefetch" href="/vuepress-blog/assets/js/37.37735106.js"><link rel="prefetch" href="/vuepress-blog/assets/js/38.45a9e8b8.js"><link rel="prefetch" href="/vuepress-blog/assets/js/39.0fcd7dcc.js"><link rel="prefetch" href="/vuepress-blog/assets/js/4.ecf7f9e8.js"><link rel="prefetch" href="/vuepress-blog/assets/js/40.621682ab.js"><link rel="prefetch" href="/vuepress-blog/assets/js/41.d03d4354.js"><link rel="prefetch" href="/vuepress-blog/assets/js/42.edf41024.js"><link rel="prefetch" href="/vuepress-blog/assets/js/43.8cd60945.js"><link rel="prefetch" href="/vuepress-blog/assets/js/44.de2cd4e9.js"><link rel="prefetch" href="/vuepress-blog/assets/js/45.4fb41246.js"><link rel="prefetch" href="/vuepress-blog/assets/js/46.b26d762d.js"><link rel="prefetch" href="/vuepress-blog/assets/js/47.3bb572d2.js"><link rel="prefetch" href="/vuepress-blog/assets/js/48.dc6af168.js"><link rel="prefetch" href="/vuepress-blog/assets/js/49.9511edba.js"><link rel="prefetch" href="/vuepress-blog/assets/js/5.8cea2090.js"><link rel="prefetch" href="/vuepress-blog/assets/js/50.2e05304d.js"><link rel="prefetch" href="/vuepress-blog/assets/js/51.f72b0b54.js"><link rel="prefetch" href="/vuepress-blog/assets/js/52.1650a6e6.js"><link rel="prefetch" href="/vuepress-blog/assets/js/53.36c638aa.js"><link rel="prefetch" href="/vuepress-blog/assets/js/54.5931bcf4.js"><link rel="prefetch" href="/vuepress-blog/assets/js/55.f48c6b88.js"><link rel="prefetch" href="/vuepress-blog/assets/js/56.6d799974.js"><link rel="prefetch" href="/vuepress-blog/assets/js/57.0abda071.js"><link rel="prefetch" href="/vuepress-blog/assets/js/58.e4e2e95d.js"><link rel="prefetch" href="/vuepress-blog/assets/js/6.5b653d91.js"><link rel="prefetch" href="/vuepress-blog/assets/js/60.d0cdc48d.js"><link rel="prefetch" href="/vuepress-blog/assets/js/61.e663cede.js"><link rel="prefetch" href="/vuepress-blog/assets/js/62.1b3ef15b.js"><link rel="prefetch" href="/vuepress-blog/assets/js/63.b17e2bda.js"><link rel="prefetch" href="/vuepress-blog/assets/js/64.3b7bc255.js"><link rel="prefetch" href="/vuepress-blog/assets/js/65.bb24c420.js"><link rel="prefetch" href="/vuepress-blog/assets/js/7.fcec5877.js"><link rel="prefetch" href="/vuepress-blog/assets/js/vendors~docsearch.a0f89813.js">
+    <link rel="stylesheet" href="/vuepress-blog/assets/css/0.styles.631b7830.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/vuepress-blog/" class="home-link router-link-active"><!----> <span class="site-name">Happyblog</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/vuepress-blog/" class="nav-link">
+  首页
+</a></div><div class="nav-item"><a href="/vuepress-blog/miniVue2/" class="nav-link router-link-active">
+  mini-Vue2 文档
+</a></div><div class="nav-item"><a href="/vuepress-blog/performance/" class="nav-link">
+  性能优化
+</a></div><div class="nav-item"><a href="/vuepress-blog/chat/" class="nav-link">
+  前端杂谈
+</a></div><div class="nav-item"><a href="https://github.com/Nwu23787/mini-Vue2" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  GitHub
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/vuepress-blog/" class="nav-link">
+  首页
+</a></div><div class="nav-item"><a href="/vuepress-blog/miniVue2/" class="nav-link router-link-active">
+  mini-Vue2 文档
+</a></div><div class="nav-item"><a href="/vuepress-blog/performance/" class="nav-link">
+  性能优化
+</a></div><div class="nav-item"><a href="/vuepress-blog/chat/" class="nav-link">
+  前端杂谈
+</a></div><div class="nav-item"><a href="https://github.com/Nwu23787/mini-Vue2" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  GitHub
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>mini-Vue2 文档</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>mini-Vue-router3 文档</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/vuepress-blog/miniVue2/router/install.html" class="sidebar-link">install</a></li><li><a href="/vuepress-blog/miniVue2/router/路由映射表与动态路由.html" class="active sidebar-link">路由映射表与动态路由</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/vuepress-blog/miniVue2/router/路由映射表与动态路由.html#creatematcher" class="sidebar-link">createMatcher</a></li><li class="sidebar-sub-header"><a href="/vuepress-blog/miniVue2/router/路由映射表与动态路由.html#路由映射表" class="sidebar-link">路由映射表</a></li><li class="sidebar-sub-header"><a href="/vuepress-blog/miniVue2/router/路由映射表与动态路由.html#动态路由" class="sidebar-link">动态路由</a></li></ul></li><li><a href="/vuepress-blog/miniVue2/router/路由切换.html" class="sidebar-link">路由切换</a></li><li><a href="/vuepress-blog/miniVue2/router/router-link 和 router-view.html" class="sidebar-link">router-link 和 router-view</a></li><li><a href="/vuepress-blog/miniVue2/router/全局路由守卫.html" class="sidebar-link">全局路由守卫</a></li></ul></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>mini-Vuex3 文档</span> <span class="arrow right"></span></p> <!----></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="路由映射表与动态路由"><a href="#路由映射表与动态路由" class="header-anchor">#</a> 路由映射表与动态路由</h1> <h2 id="creatematcher"><a href="#creatematcher" class="header-anchor">#</a> createMatcher</h2> <p>我们在使用 Vue-Router 的时候，需要创建 VueRouter 实例，并传入配置。之后再将这个 VueRouter 实例传入 Vue 根实例中。</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">const</span> router <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">VueRouter</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    <span class="token literal-property property">mode</span><span class="token operator">:</span><span class="token string">'hash'</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">base</span><span class="token operator">:</span><span class="token string">''</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">routes</span><span class="token operator">:</span><span class="token punctuation">[</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token keyword">new</span> <span class="token class-name">Vue</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  router<span class="token punctuation">,</span>
+  <span class="token function-variable function">render</span><span class="token operator">:</span> <span class="token parameter">h</span> <span class="token operator">=&gt;</span> <span class="token function">h</span><span class="token punctuation">(</span>App<span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">$mount</span><span class="token punctuation">(</span><span class="token string">'#app'</span><span class="token punctuation">)</span>
+</code></pre></div><p>在创建 VueRouter 时，比较重要的一个属性就是 matcher（匹配器），通过 createMatcher 来创建的。</p> <div class="language-js extra-class"><pre class="language-js"><code>    <span class="token keyword">this</span><span class="token punctuation">.</span>app <span class="token operator">=</span> <span class="token keyword">null</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>apps <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>options <span class="token operator">=</span> options
+    <span class="token keyword">this</span><span class="token punctuation">.</span>beforeHooks <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>resolveHooks <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>afterHooks <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>matcher <span class="token operator">=</span> <span class="token function">createMatcher</span><span class="token punctuation">(</span>options<span class="token punctuation">.</span>routes <span class="token operator">||</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">)</span>
+</code></pre></div><p>createMatcher ：</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// 创建匹配器</span>
+
+<span class="token keyword">import</span> createRouteMap <span class="token keyword">from</span> <span class="token string">&quot;./create-router-map&quot;</span><span class="token punctuation">;</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">function</span> <span class="token function">createMatcher</span><span class="token punctuation">(</span><span class="token parameter">routes</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+    <span class="token comment">// 创建映射表</span>
+    <span class="token keyword">let</span> <span class="token punctuation">{</span> pathMap <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">createRouteMap</span><span class="token punctuation">(</span>routes<span class="token punctuation">)</span>
+
+
+    <span class="token comment">/**
+     * 
+     * @param {Array} routes 动态添加多个路由
+     */</span>
+    <span class="token keyword">function</span> <span class="token function">addRoutes</span><span class="token punctuation">(</span><span class="token parameter">routes</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">createRouteMap</span><span class="token punctuation">(</span>routes<span class="token punctuation">,</span> pathMap<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 
+     * @param {object} route 动态添加一个路由
+     */</span>
+    <span class="token keyword">function</span> <span class="token function">addRoute</span><span class="token punctuation">(</span><span class="token parameter">route</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">createRouteMap</span><span class="token punctuation">(</span><span class="token punctuation">[</span>route<span class="token punctuation">]</span><span class="token punctuation">,</span> pathMap<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 根据路由路径，返回对应的路由对象
+     * @param {string} url 路由的路径
+     * @returns object
+     */</span>
+    <span class="token keyword">function</span> <span class="token function">match</span><span class="token punctuation">(</span><span class="token parameter">url</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> pathMap<span class="token punctuation">[</span>url<span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">return</span> <span class="token punctuation">{</span>
+        addRoutes<span class="token punctuation">,</span>
+        addRoute<span class="token punctuation">,</span>
+        match
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h2 id="路由映射表"><a href="#路由映射表" class="header-anchor">#</a> 路由映射表</h2> <p>在创建匹配器时，第一步也是最重要的一步，就是创建路由映射表。在我们定义路由时，传入的是树状的数组，但是树状数组十分难操作，无论是后面动态添加路由，还是根据地址匹配路由，都很浪费性能。所以，Vue-Router 会将传入的数组扁平化，<strong>将路由路径作为映射表的 key，对应的路由对象作为映射表的 value</strong>。</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// 创建路由映射表</span>
+
+<span class="token comment">/**
+ * 构建路由信息映射表
+ * @param {Array} routes 路由信息
+ * @param {Array} pathMap 已有的路由映射表，可选
+ */</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">function</span> <span class="token function">createRouteMap</span><span class="token punctuation">(</span><span class="token parameter">routes<span class="token punctuation">,</span> pathMap <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+    routes<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token parameter">route</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token function">addRouteRecord</span><span class="token punctuation">(</span>route<span class="token punctuation">,</span> pathMap<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">return</span> <span class="token punctuation">{</span> pathMap <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">/**
+ * 
+ * @param {object} route 具体某个路由信息对象
+ * @param {object} pathMap 映射表
+ * @param {object} parentRecord 父路由信息对象
+ */</span>
+<span class="token keyword">function</span> <span class="token function">addRouteRecord</span><span class="token punctuation">(</span><span class="token parameter">route<span class="token punctuation">,</span> pathMap<span class="token punctuation">,</span> parentRecord</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">let</span> path <span class="token operator">=</span> route<span class="token punctuation">.</span>path
+    <span class="token comment">// 拼接路径</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>parentRecord<span class="token operator">?.</span>path<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        path <span class="token operator">=</span> parentRecord<span class="token punctuation">.</span>path <span class="token operator">===</span> <span class="token string">'/'</span> <span class="token operator">?</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">/</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>route<span class="token punctuation">.</span>path<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span> <span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>parentRecord<span class="token punctuation">.</span>path<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">/</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>route<span class="token punctuation">.</span>path<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">let</span> record <span class="token operator">=</span> <span class="token punctuation">{</span>
+        path<span class="token punctuation">,</span>
+        <span class="token literal-property property">component</span><span class="token operator">:</span> route<span class="token punctuation">.</span>component<span class="token punctuation">,</span>
+        <span class="token literal-property property">props</span><span class="token operator">:</span> route<span class="token punctuation">.</span>props<span class="token punctuation">,</span>
+        <span class="token literal-property property">meta</span><span class="token operator">:</span> route<span class="token punctuation">.</span>meta<span class="token punctuation">,</span>
+        <span class="token literal-property property">name</span><span class="token operator">:</span> route<span class="token punctuation">.</span>name
+    <span class="token punctuation">}</span>
+    <span class="token comment">// 路径 对应 路由信息 </span>
+    <span class="token comment">// 如果路径相同，后面的路由会覆盖前面的路由</span>
+    pathMap<span class="token punctuation">[</span>path<span class="token punctuation">]</span> <span class="token operator">=</span> record
+
+    <span class="token comment">// 递归处理子节点</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>route<span class="token punctuation">.</span>children<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        route<span class="token punctuation">.</span>children<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token parameter">cld</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token function">addRouteRecord</span><span class="token punctuation">(</span>cld<span class="token punctuation">,</span> pathMap<span class="token punctuation">,</span> record<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+</code></pre></div><h2 id="动态路由"><a href="#动态路由" class="header-anchor">#</a> 动态路由</h2> <p>在做到权限管理类的项目时，时常需要用到动态路由。在某些情况下，我们需要动态的向路由表中添加路由，这就用到了 Vue-Router 中的 <strong>addRoutes / addRoute</strong> API 。</p> <div class="language-js extra-class"><pre class="language-js"><code>    <span class="token comment">/**
+     * 动态添加多个路由
+     * @param {Array} routes 要动态添加多个路由数组
+     */</span>
+    <span class="token keyword">function</span> <span class="token function">addRoutes</span><span class="token punctuation">(</span><span class="token parameter">routes</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">createRouteMap</span><span class="token punctuation">(</span>routes<span class="token punctuation">,</span> pathMap<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 动态添加一个路由
+     * @param {object} route 要动态添加一个路由
+     */</span>
+    <span class="token keyword">function</span> <span class="token function">addRoute</span><span class="token punctuation">(</span><span class="token parameter">route</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">createRouteMap</span><span class="token punctuation">(</span><span class="token punctuation">[</span>route<span class="token punctuation">]</span><span class="token punctuation">,</span> pathMap<span class="token punctuation">)</span>
+
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 根据路由路径，返回对应的路由对象
+     * @param {string} url 路由的路径
+     * @returns object
+     */</span>
+    <span class="token keyword">function</span> <span class="token function">match</span><span class="token punctuation">(</span><span class="token parameter">url</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> pathMap<span class="token punctuation">[</span>url<span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
+</code></pre></div><p>可以看到， addRoutes / addRoute  的底层其实就是将动态添加的路由以及当前已有的路由映射表 pathMap 传入 createRouteMap 函数，进而将新传入的路由解析到已有的路由映射表中。</p></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/vuepress-blog/miniVue2/router/install.html" class="prev">
+        install
+      </a></span> <span class="next"><a href="/vuepress-blog/miniVue2/router/路由切换.html">
+        路由切换
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/vuepress-blog/assets/js/app.f8677ea4.js" defer></script><script src="/vuepress-blog/assets/js/2.32f56e5c.js" defer></script><script src="/vuepress-blog/assets/js/1.a930a345.js" defer></script><script src="/vuepress-blog/assets/js/59.fc9cc726.js" defer></script>
+  </body>
+</html>
